@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Compact Minesweeper</title>
+
+        <style>
+            body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: #222;
+                color: white;
+                font-family: monospace;
+            }
+            h1 {
+                margin: 0 0 12px;
+            }
+            #info {
+                width: 330px;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            #board {
+                display: grid;
+                grid-template-columns: repeat(10, 32px);
+                gap: 2px;
+            }
+
+            .cell {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+                border: 1px solid #555;
+                background: #777;
+                color: white;
+                font: bold 16px monospace;
+                cursor: pointer;
+            }
+            .cell:hover {
+                background: #999;
+            }
+            .open {
+                background: #bbb;
+                color: #111;
+            }
+            .mine {
+                background: #d33;
+            }
+
+            .flag {
+                color : #ffd33d;
+            }
+            #restart {
+                margin-top: 14px;
+                padding: 7px 18px;
+                border: 0;
+                background: #ddd;
+                cursor: pointer;
+            }
+            #message {
+                height: 18px;
+                margin: 10px 0 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Minesweeper</h1>
+        <div id="info">
+            <span>Mines: <b id="mineCount">10</b></span>
+            <span>Flags: <b id="flagCount">0</b></span>
+        </div>
+
+        <div id="board"></div>
+        <button id="restart">New Game</button>
+
+        <p id="message"></p>
+
+        <script>
+            const size = 10;
+            const mineTotal = 10;
+            const board = document.querySelector("#board");
+            const mineCount = document.querySelector("#minecount");
+            const flagCount = document.querySelector("#flagcount");
+            const message = document.querySelector("#message");
+            const restart = document.querySelector("#restart")
+
+            let cells = [];
+            let flags = 0;
+            let gameOver = false;
+            let audio;
+            
+        </script>
+    </body>
+</html>
