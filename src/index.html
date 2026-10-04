@@ -62,7 +62,6 @@
                 margin: 10px 0 0;
             }
         </style>
-    </head>
 
     <body>
         <h1>Minesweeper</h1>
@@ -206,13 +205,13 @@
             function lose() {
                 gameOver = true;
                 bombSound();
-                message.textContent = "Game Over!!!";
+                message.textContent = "Game Over";
                 cells.forEach((c, i) => c.mine && (board.children[i].textContent = "B", board.children[i].classList.add("mine")));
             }
             function checkWin() {
                 if(cells.some(c => !c.mine && !c.open)) return;
                 gameOver = true;
-                message.textContent = "You Win!!!";
+                message.textContent = "You Win";
             }
             restart.onclick = newGame;
             newGame();
