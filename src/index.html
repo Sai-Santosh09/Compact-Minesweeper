@@ -226,8 +226,98 @@
                 }
             }
 
-            
+            function openCell(index) {
+                if(gameOver) {
+                    return;
+                }
+                const cell = cells[index];
+                if(cell.open || cell.flag){
+                    return;
+                }
+                if(cell.mine){
+                    lose();
+                    return;
+                }
 
+                clickSound();
+                reveal(index);
+                checkWin();
+            }
+
+            function reveal(index) {
+                const cell = cells[index];
+                const button = board.children[index];
+
+                if(cell.open || cell.flag || cell.mine){
+                    return;
+                }
+                cell.open = true;
+                button.classList.add("open");
+                if(cell.number > 0) {
+                    button.textContent = cell.number;
+                }
+
+                if(cell.number == 0) {
+                    const around = neighbors(index);
+                    for (let i = 0; i < around.length;i++) {
+                        reveal(around[i]);
+                    }
+                }
+            }
+
+            function toggleFlag(index) {
+                if(gameOver) {
+                    return;
+                }
+                const cell = cells[index];
+                const button = board.children[index];
+
+                if (cell.open){
+                    return;
+                }
+                if(cell.flag){
+                    cell.flag = false;
+                    flags--;
+
+                    button.textContent = "";
+                    button.classList.remove("flag");
+                } else {
+                    if(flags >= mineTotal) {
+                        return;
+                    }
+                    cell.flag = true;
+                    flags++;
+
+                    button.textContent = "⚑";
+                    button.classList.add("flag");
+                }
+                flagCount.textContent = flags;
+            }
+
+            function lose() {
+                gameOver = true;
+                bombSound();
+                message.textContent = "Game Over!!!";
+                for(let i = 0; i < cells.length;i++){
+                    if(cells[i].mine){
+                        board.children[i].textContent = "💣";
+                        board.children[i].classList.add("mine");
+                    }
+                }
+            }
+
+            function checkWin() {
+                for(let i = 0;i < cells.length;i++){
+                    if(!cells[i].mine && !cells[i].open) {
+                        return;
+                    }
+                }
+                gameOver = true;
+                message.textContent = "You Win!!!";
+            }
+
+            restart.onclick = newGame;
+            newGame();
         </script>
     </body>
 </html>
